@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3444166375266751432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50,7 +50,7 @@ MonoBehaviour:
   m_RequestedTrackingMode: 0
   m_TrackingOriginMode: 1
   m_TrackingSpace: 0
-  m_CameraYOffset: 1.36144
+  m_CameraYOffset: 1
 --- !u!114 &8704090289770082233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 3377805955694448534}
   - component: {fileID: 5737281094042679283}
   - component: {fileID: 6895888038148262077}
+  - component: {fileID: 3443222569572780479}
   m_Layer: 0
   m_Name: Right Hand
   m_TagString: Untagged
@@ -351,6 +352,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 0
+--- !u!114 &3443222569572780479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578259001150356764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132ab2c3c1a84ea4cb197e620a0b5cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: 0
+  grabRadius: 0.1
+  grabLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &7284613679578467348
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +394,7 @@ Transform:
   m_GameObject: {fileID: 7284613679578467348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.36144, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -396,6 +414,7 @@ GameObject:
   - component: {fileID: 2488988681756537152}
   - component: {fileID: 5182448791386979456}
   - component: {fileID: 4208813578220198234}
+  - component: {fileID: 8105120573264397543}
   m_Layer: 0
   m_Name: Left Hand
   m_TagString: Untagged
@@ -517,6 +536,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: 1
+--- !u!114 &8105120573264397543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191086464835705163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 132ab2c3c1a84ea4cb197e620a0b5cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: 1
+  grabRadius: 0.1
+  grabLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1001 &85495773577302071
 PrefabInstance:
   m_ObjectHideFlags: 0
