@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeGrabTarget : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Transform targetIndicator;
+    [field:SerializeField] public Grabbable Grabbable { get; private set; }
+
+    public void Target()
     {
-        
+        targetIndicator.gameObject.SetActive(true);
+    }
+    
+    public void Untarget()
+    {
+        targetIndicator.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        targetIndicator.gameObject.SetActive(false);
     }
 }

@@ -6,11 +6,29 @@ public class GrabManager : MonoBehaviour
     public Vector3 Velocity { get; private set; }
     public Vector3 AngularVelocity { get; private set; }
 
+    public InputHand Hand { get { return hand; } }
+
     [SerializeField] private InputHand hand;
     [SerializeField] private float grabRadius;
     [SerializeField] private LayerMask grabLayer;
 
     private Grabbable currentlyGrabbing;
+
+    public void Grab(Grabbable grabbable)
+    {
+        if (currentlyGrabbing == grabbable)
+        {
+            return;
+        }
+
+        if (currentlyGrabbing != null)
+        {
+            currentlyGrabbing.LetGo();
+        }
+
+        currentlyGrabbing = grabbable;
+        currentlyGrabbing.Grab(this);
+    }
 
     public void LostControlOfGrabbable(Grabbable grabbable)
     {
@@ -18,6 +36,11 @@ public class GrabManager : MonoBehaviour
         {
             currentlyGrabbing = null;
         }
+    }
+
+    public bool HasCurrentGrabbable()
+    {
+        return currentlyGrabbing != null;
     }
 
     private void Start()
@@ -84,22 +107,6 @@ public class GrabManager : MonoBehaviour
         {
             Grab(grabbable);
         }
-    }
-
-    private void Grab(Grabbable grabbable)
-    {
-        if (currentlyGrabbing == grabbable)
-        {
-            return;
-        }
-
-        if (currentlyGrabbing != null)
-        {
-            currentlyGrabbing.LetGo();
-        }
-
-        currentlyGrabbing = grabbable;
-        currentlyGrabbing.Grab(this);
     }
 
     private void HandleLettingGoObject()

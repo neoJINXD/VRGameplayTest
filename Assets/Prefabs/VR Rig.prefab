@@ -231,6 +231,8 @@ GameObject:
   - component: {fileID: 5737281094042679283}
   - component: {fileID: 6895888038148262077}
   - component: {fileID: 3443222569572780479}
+  - component: {fileID: 7868844563285962064}
+  - component: {fileID: 1798228115172725224}
   m_Layer: 0
   m_Name: Right Hand
   m_TagString: Untagged
@@ -369,6 +371,35 @@ MonoBehaviour:
   grabLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &7868844563285962064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578259001150356764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75affeffffc9f48419c8599544d7efdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangedGrabLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  range: 5
+--- !u!114 &1798228115172725224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5578259001150356764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573ed75d9014fc5458530c4ac75ca2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeGrabDuration: 0.25
 --- !u!1 &7284613679578467348
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +446,8 @@ GameObject:
   - component: {fileID: 5182448791386979456}
   - component: {fileID: 4208813578220198234}
   - component: {fileID: 8105120573264397543}
+  - component: {fileID: 7905989899453632879}
+  - component: {fileID: 8052883925920055551}
   m_Layer: 0
   m_Name: Left Hand
   m_TagString: Untagged
@@ -553,6 +586,35 @@ MonoBehaviour:
   grabLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &7905989899453632879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191086464835705163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75affeffffc9f48419c8599544d7efdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangedGrabLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  range: 5
+--- !u!114 &8052883925920055551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9191086464835705163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573ed75d9014fc5458530c4ac75ca2d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rangeGrabDuration: 0.25
 --- !u!1001 &85495773577302071
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,18 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GrabManager))]
 public class RangeGrab : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private LayerMask rangedGrabLayer;
+    [SerializeField] private float range = 5f;
+
+    public float Range { get { return range; } }
+
+    private GrabManager grabManager;
+
+    public RangeGrabTarget CurrentRangeGrabTarget { get; private set; }
+
+    public bool HasActiveRangedGrabTarget()
     {
-        
+        return CurrentRangeGrabTarget != null;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        grabManager = GetComponent<GrabManager>();
+    }
+
+    private void Update()
+    {
+        // already grabbing something, ignore range targets
+        if (grabManager.HasCurrentGrabbable())
+        {
+            return;
+        }
+
+        if (Physics.Raycast(new Ray(transform.position, transform.forward), out var hit, range, rangedGrabLayer))
+        {
+            var rangedGrabTarget = hit.collider.GetComponent<RangeGrabTarget>();
+            if (rangedGrabTarget != null && rangedGrabTarget != CurrentRangeGrabTarget)
+            {
+                if (CurrentRangeGrabTarget != null)
+                {
+                    CurrentRangeGrabTarget.Untarget();
+                }
+
+                CurrentRangeGrabTarget = rangedGrabTarget;
+                CurrentRangeGrabTarget.Target();
+            }
+        }
+        else if (CurrentRangeGrabTarget != null)
+        {
+            CurrentRangeGrabTarget.Untarget();
+            CurrentRangeGrabTarget = null;
+        }
     }
 }
