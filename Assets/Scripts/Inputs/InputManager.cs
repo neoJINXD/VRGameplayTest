@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XR.Haptics;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; set; }
+    public InputDevice[] XRControllers { get; private set; }
     private VRControls controls;
 
     // Setting up Observers for each relevant input from the controllers
@@ -30,6 +34,19 @@ public class InputManager : MonoBehaviour
         (notifyMap[type] as List<T>[])[(int)hand].Remove(notify);
     }
 
+    public void SentHaptics(InputHand hand, int channel, float amplitude, float duration)
+    {
+
+        if (XRControllers[(int)hand] == null)
+        {
+            Debug.LogWarning("Attempted to send haptics to unknown device");
+            return;
+        }
+
+        var hapticsRequest = SendHapticImpulseCommand.Create(channel, amplitude, duration);
+        XRControllers[(int)hand].ExecuteCommand(ref hapticsRequest);
+    }
+
     private void Awake() 
     {
         if (Instance == null)
@@ -38,6 +55,7 @@ public class InputManager : MonoBehaviour
             controls = new VRControls();
 
             PopulateDefaultNotify();
+            PopulateXRControllers();
         } 
         else if (Instance != this) 
         {
@@ -72,6 +90,40 @@ public class InputManager : MonoBehaviour
         notifyMap.Add(NotifyType.TiggerPressed, triggerPressedNotifies);
         notifyMap.Add(NotifyType.TriggerReleased, gripPressedNotifies);
         notifyMap.Add(NotifyType.ThumbstickDiction, thumbstickDirectionNotifies);
+    }
+
+    private void PopulateXRControllers()
+    {
+        XRControllers = new InputDevice[2];
+
+        InputSystem.onDeviceChange += (device, change) =>
+        {
+            switch (change)
+            {
+                case InputDeviceChange.Added:
+                case InputDeviceChange.Reconnected:
+                    if (device.usages.Contains(CommonUsages.LeftHand))
+                    {
+                        XRControllers[(int)InputHand.Left] = device;
+                    }
+                    if (device.usages.Contains(CommonUsages.RightHand))
+                    {
+                        XRControllers[(int)InputHand.Right] = device;
+                    }
+                    break;
+                case InputDeviceChange.Removed:
+                case InputDeviceChange.Disconnected:
+                    if (device.usages.Contains(CommonUsages.LeftHand))
+                    {
+                        XRControllers[(int)InputHand.Left] = null;
+                    }
+                    if (device.usages.Contains(CommonUsages.RightHand))
+                    {
+                        XRControllers[(int)InputHand.Right] = null;
+                    }
+                    break;
+            }
+        };
     }
 
     private void Start() 
