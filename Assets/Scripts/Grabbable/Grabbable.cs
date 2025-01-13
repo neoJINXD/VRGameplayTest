@@ -7,6 +7,7 @@ public class Grabbable : MonoBehaviour
     [SerializeField] private UnityEvent onLetGo;
     public GrabManager CurrentGrabber { get; private set; }
 
+
     public void Grab(GrabManager grabManager)
     {
         if (CurrentGrabber != null)

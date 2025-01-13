@@ -1,8 +1,9 @@
 using UnityEngine;
 public abstract class GrabFeature : MonoBehaviour
 {
-    public bool IsGrabbed { get; private set; }
     [field: SerializeField] protected Grabbable Grabbable { get; private set; }
+    public bool IsGrabbed { get; private set; }
+
 
     public void OnGrab()
     {

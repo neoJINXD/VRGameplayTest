@@ -18,8 +18,17 @@ public class InputManager : MonoBehaviour
     private List<Action>[] triggerReleasedNotifies = new List<Action>[2];
     private List<Action<Vector2>>[] thumbstickDirectionNotifies = new List<Action<Vector2>>[2];
 
-
     private Dictionary<NotifyType, object> notifyMap = new Dictionary<NotifyType, object>();
+
+
+    public void RegisterNotify<T>(NotifyType type, InputHand hand, T notify)
+    {
+        (notifyMap[type] as List<T>[])[(int)hand].Add(notify);
+    }
+    public void UnregisterNotify<T>(NotifyType type, InputHand hand, T notify)
+    {
+        (notifyMap[type] as List<T>[])[(int)hand].Remove(notify);
+    }
 
     private void Awake() 
     {
@@ -63,15 +72,6 @@ public class InputManager : MonoBehaviour
         notifyMap.Add(NotifyType.TiggerPressed, triggerPressedNotifies);
         notifyMap.Add(NotifyType.TriggerReleased, gripPressedNotifies);
         notifyMap.Add(NotifyType.ThumbstickDiction, thumbstickDirectionNotifies);
-    }
-
-    public void RegisterNotify<T>(NotifyType type, InputHand hand, T notify)
-    {
-        (notifyMap[type] as List<T>[])[(int)hand].Add(notify);
-    }
-    public void UnregisterNotify<T>(NotifyType type, InputHand hand, T notify)
-    {
-        (notifyMap[type] as List<T>[])[(int)hand].Remove(notify);
     }
 
     private void Start() 
@@ -126,5 +126,4 @@ public class InputManager : MonoBehaviour
             notify?.Invoke();
         }
     }
-
 }

@@ -12,9 +12,8 @@ public class RangeGrabAction : MonoBehaviour
     private RangeGrab rangeGrab;
     private RangeGrabTarget currentRangeGrabTarget;
     private bool excecutingRangeGrab;
-
     private bool renderAimLine = true;
-
+    private bool gripPressed = false;
     private LineRenderer line;
 
 
@@ -31,24 +30,25 @@ public class RangeGrabAction : MonoBehaviour
 
     private void Update()
     {
+        // Line renderer to help aim range grab
         if (renderAimLine)
         {
-            // Vector3 forward = transform.TransformDirection(Vector3.forward) * rangeGrab.Range;
-            // Debug.DrawRay(transform.position, forward, Color.green);
             var positions = new Vector3[2];
             positions[0] = transform.position;
             positions[1] = transform.position + (transform.TransformDirection(Vector3.forward) * rangeGrab.Range);
             line.SetPositions(positions);
         }
+
+        // not holding onto something and aiming at a grabbable
+        if (gripPressed && !grabManager.HasCurrentGrabbable() && rangeGrab.HasActiveRangedGrabTarget())
+        {
+            currentRangeGrabTarget = rangeGrab.CurrentRangeGrabTarget;
+        }
     }
 
     private void HandleGripPressed()
     {
-        // not holding onto something and aiming at a grabbable
-        if (!grabManager.HasCurrentGrabbable() && rangeGrab.HasActiveRangedGrabTarget())
-        {
-            currentRangeGrabTarget = rangeGrab.CurrentRangeGrabTarget;
-        }
+        gripPressed = true;
     }
 
     private void HandleGripReleased()
@@ -59,12 +59,14 @@ public class RangeGrabAction : MonoBehaviour
 
             if (excecutingRangeGrab)
             {
-                StopAllCoroutines();
+                StopCoroutine(ExecuteRangeGrab());
             }
         }
 
         renderAimLine = true;
         line.enabled = true;
+
+        gripPressed = false;
     }
 
     private void HandleTriggerPressed()
@@ -85,12 +87,14 @@ public class RangeGrabAction : MonoBehaviour
 
         excecutingRangeGrab = true;
 
+        // disable physics
         if (currentRangeGrabTarget.transform.parent.GetComponent<Rigidbody>())
         {
             currentRangeGrabTarget.transform.parent.GetComponent<Rigidbody>().isKinematic = true;
             currentRangeGrabTarget.transform.parent.GetComponent<Rigidbody>().useGravity = false;
         }
 
+        // lerp ball into hand
         while (executionTime < rangeGrabDuration)
         {
             if (currentRangeGrabTarget == null)
@@ -110,6 +114,7 @@ public class RangeGrabAction : MonoBehaviour
 
         if (currentRangeGrabTarget != null)
         {
+            // reenable physics
             if (currentRangeGrabTarget.transform.parent.GetComponent<Rigidbody>())
             {
                 currentRangeGrabTarget.transform.parent.GetComponent<Rigidbody>().isKinematic = false;

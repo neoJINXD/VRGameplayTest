@@ -10,10 +10,8 @@ public class DebugHand : MonoBehaviour
     InputManager.Instance.RegisterNotify<Action<Vector3>>(NotifyType.DeviceVelocity ,hand, HandleDeviceVelocity);
     InputManager.Instance.RegisterNotify<Action>(NotifyType.TiggerPressed, hand, HandleTriggerPressed);
     InputManager.Instance.RegisterNotify<Action>(NotifyType.TriggerReleased, hand, HandleTriggerReleased);
-
     InputManager.Instance.RegisterNotify<Action>(NotifyType.GripPressed, hand, HandleGripPressed);
   }
-
 
   private void HandleGripPressed()
   {

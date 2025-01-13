@@ -6,6 +6,7 @@ public class PhysicsGrabFeature : GrabFeature
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float throwSpeedMultiplier = 1f;
 
+
     protected override void HandleGrabbed()
     {
         rigidbody.isKinematic = true;

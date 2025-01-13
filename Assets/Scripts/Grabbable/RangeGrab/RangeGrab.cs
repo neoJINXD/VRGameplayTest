@@ -5,12 +5,11 @@ public class RangeGrab : MonoBehaviour
 {
     [SerializeField] private LayerMask rangedGrabLayer;
     [SerializeField] private float range = 5f;
-
     public float Range { get { return range; } }
+    public RangeGrabTarget CurrentRangeGrabTarget { get; private set; }
 
     private GrabManager grabManager;
 
-    public RangeGrabTarget CurrentRangeGrabTarget { get; private set; }
 
     public bool HasActiveRangedGrabTarget()
     {

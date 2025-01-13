@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class GrabManager : MonoBehaviour
 {
-    public Vector3 Velocity { get; private set; }
-    public Vector3 AngularVelocity { get; private set; }
-
-    public InputHand Hand { get { return hand; } }
-
     [SerializeField] private InputHand hand;
     [SerializeField] private float grabRadius;
     [SerializeField] private LayerMask grabLayer;
+    public Vector3 Velocity { get; private set; }
+    public Vector3 AngularVelocity { get; private set; }
+    public InputHand Hand { get { return hand; } }
 
     private Grabbable currentlyGrabbing;
+
 
     public void Grab(Grabbable grabbable)
     {
@@ -45,32 +44,10 @@ public class GrabManager : MonoBehaviour
 
     private void Start()
     {
-        InputManager.Instance.RegisterNotify<Action>(NotifyType.TiggerPressed, hand, HandleTriggerPressed);
-        InputManager.Instance.RegisterNotify<Action>(NotifyType.TriggerReleased, hand, HandleTriggerReleased);
-        InputManager.Instance.RegisterNotify<Action>(NotifyType.GripPressed, hand, HandleGripPressed);
-        InputManager.Instance.RegisterNotify<Action>(NotifyType.GripReleased, hand, HandleGripReleased);
+        InputManager.Instance.RegisterNotify<Action>(NotifyType.GripPressed, hand, HandleGrabbingObject);
+        InputManager.Instance.RegisterNotify<Action>(NotifyType.GripReleased, hand, HandleLettingGoObject);
         InputManager.Instance.RegisterNotify<Action<Vector3>>(NotifyType.DeviceVelocity, hand, HandleVelocity);
         InputManager.Instance.RegisterNotify<Action<Vector3>>(NotifyType.DeviceAngularVelocity, hand, HandleAngularVelocity);
-    }
-
-    private void HandleTriggerPressed()
-    {
-        HandleGrabbingObject();
-    }
-
-    private void HandleTriggerReleased()
-    {
-        HandleLettingGoObject();
-    }
-
-    private void HandleGripPressed()
-    {
-        HandleGrabbingObject();
-    }
-
-    private void HandleGripReleased()
-    {
-        HandleLettingGoObject();
     }
 
     private void HandleVelocity(Vector3 velocity)
@@ -117,5 +94,4 @@ public class GrabManager : MonoBehaviour
             currentlyGrabbing = null;
         }
     }
-
 }
