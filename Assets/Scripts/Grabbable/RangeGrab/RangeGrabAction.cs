@@ -106,8 +106,8 @@ public class RangeGrabAction : MonoBehaviour
 
             var percentageTime = executionTime / rangeGrabDuration;
 
-            currentRangeGrabTarget.transform.parent.position = Vector3.Lerp(originPosition, grabManager.transform.position, percentageTime);
-            currentRangeGrabTarget.transform.parent.rotation = Quaternion.Lerp(originRotation, grabManager.transform.rotation, percentageTime);
+            currentRangeGrabTarget.transform.parent.position = Vector3.Lerp(originPosition, grabManager.transform.position, percentageTime * percentageTime);
+            currentRangeGrabTarget.transform.parent.rotation = Quaternion.Lerp(originRotation, grabManager.transform.rotation, percentageTime * percentageTime);
 
             yield return new WaitForEndOfFrame();
         }
